@@ -1,19 +1,7 @@
 import { v4 } from "uuid";
-import { Low } from "lowdb";
-import { JSONFile } from "lowdb/node";
-import * as fs from "fs";
+import { initStore } from "../utils/store-utils.js";
 
-const store = {
-  file: "./models/user-store.json",
-  users: [],
-  init() {
-    if (!fs.existsSync(this.file)) {
-      fs.writeFileSync(this.file, JSON.stringify(this));
-    }
-  },
-};
-store.init();
-const db = new Low(new JSONFile(store.file));
+const db = initStore("users");
 
 export const userStore = {
   async getAllUsers() {
